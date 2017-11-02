@@ -10,6 +10,7 @@ import domainmodel.Note;
 import java.io.IOException;
 import java.io.PrintWriter;
 import java.util.ArrayList;
+import java.util.List;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.servlet.ServletException;
@@ -40,10 +41,24 @@ public class NoteServlet extends HttpServlet {
     {
         NoteService ns = new NoteService();
 
-        ArrayList<Note> notes = null;
+        String action = request.getParameter("action");
+        if (action != null && action.equals("view"))
+        {
+            String selectedNoteId = request.getParameter("selectedNoteId");
+            try
+            {
+                Note note = ns.getNote(Integer.parseInt(selectedNoteId));
+                request.setAttribute("selectedNote", note);
+            } catch (Exception ex)
+            {
+                Logger.getLogger(NoteServlet.class.getName()).log(Level.SEVERE, null, ex);
+            }
+        }
+
+        List<Note> notes = null;
         try
         {
-            notes = (ArrayList<Note>) ns.getAll();
+            notes = ns.getAll();
         } catch (Exception ex)
         {
             Logger.getLogger(NoteServlet.class.getName()).log(Level.SEVERE, null, ex);

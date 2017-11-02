@@ -4,8 +4,6 @@ CREATE DATABASE NotesDB;
 USE NotesDB;
 
 
-DROP TABLE User;
-
 CREATE TABLE User( 
     username VARCHAR(10) NOT NULL,
     password VARCHAR(10) NOT NULL,
@@ -18,7 +16,6 @@ CREATE TABLE User(
 
 INSERT INTO User values('admin', 'password', 'test@test.com', 1, 'Bob', 'Bobberson');
 
-DROP TABLE Note;
 
 Create table Note(
     noteId int not null AUTO_INCREMENT,
@@ -27,5 +24,4 @@ Create table Note(
     primary key (noteId)
 );
 
-ALTER TABLE Note AUTO_INCREMENT=100
-
+INSERT INTO Note (dateCreated, contents) values(curdate(), 'Notes 1 Test');
